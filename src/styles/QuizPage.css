@@ -1,0 +1,77 @@
+.q-content {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Question */
+.question-block {
+  margin-bottom: 8px;
+}
+
+.q-text {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1e2a5a;
+  margin-bottom: 14px;
+  line-height: 1.4;
+}
+
+/* Answer options row */
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.opt {
+  background: transparent;
+  border: 1.5px solid #b0b5d8;
+  border-radius: 999px; /* full pill shape */
+  padding: 8px 20px;
+  font-size: 0.95rem;
+  color: #2d3461;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+
+/* Selected state — soft lavender fill */
+.opt.selected {
+  background: #d0d4f0;
+  border-color: #d0d4f0;
+}
+
+.opt:hover:not(.selected) {
+  background: #e8eaf5;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #cdd0e0;
+  margin: 4px 0 24px;
+}
+
+/* Check answers button */
+.check-btn-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.check-btn {
+  background: #3d4278;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 16px 80px;
+  font-size: 1.05rem;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.check-btn:hover {
+  background: #2e3260;
+}
