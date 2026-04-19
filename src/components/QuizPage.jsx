@@ -1,6 +1,16 @@
+import { useState, useEffect } from "react";
 import "../styles/QuizPage.css";
 
 export function QuizPage(props) {
+  const [shuffledAnswers, setShuffledAnswers] = useState([]);
+
+  useEffect(() => {
+    const shuffled = props.quizzes.map((quiz) =>
+      shuffle([quiz.correct_answer, ...quiz.incorrect_answers]),
+    );
+    setShuffledAnswers(shuffled);
+  }, [props.quizzes]);
+
   function shuffle(array) {
     const arr = [...array]; // copy so you don't mutate the original
     for (let i = arr.length - 1; i > 0; i--) {
@@ -9,21 +19,27 @@ export function QuizPage(props) {
     }
     return arr;
   }
-  const quizzesElement = props.quizzes.map((quiz,index) => {
-    const shuffled = shuffle([quiz.correct_answer,...quiz.incorrect_answers])
+
+  const quizzesElement = props.quizzes.map((quiz, index) => {
     return (
       <div className="question-block" key={index}>
         <p className="q-text">{quiz.question}</p>
         <div className="options">
-          <button className="opt selected">{shuffled[0]}</button>
-          <button className="opt">{shuffled[1]}</button>
-          <button className="opt">{shuffled[2]}</button>
-          <button className="opt">{shuffled[3]}</button>
+          {(shuffledAnswers[index] || []).map((answer, i) => (
+          <button
+            key={i}
+            className={`opt ${props.selectedAnswers[index] === answer ? 'selected' : ''}`}
+            onClick={() => props.onSelect(index, answer)}
+          >
+            {answer}
+          </button>
+        ))}
         </div>
         <hr></hr>
       </div>
     );
   });
+  
   return (
     <>
       <div className="blob-top-right"></div>
