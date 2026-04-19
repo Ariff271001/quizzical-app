@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 function App() {
   const [isHomePage, setIsHomePage] = useState(true);
   const [selectedAnswers, setSelectedAnswers] = useState({});
-  const [quizzes, setQuizzes] = useState([1, 2, 3, 4, 5]);
+  const [quizzes, setQuizzes] = useState([]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -38,7 +38,7 @@ function App() {
   }
   return (
     <>
-      {isHomePage ? (
+      {quizzes.length !== 0 && (isHomePage ? (
         <HomePage onClick={start} />
       ) : (
         <QuizPage
@@ -46,7 +46,7 @@ function App() {
           selectedAnswers={selectedAnswers}
           onSelect={handleSelect}
         />
-      )}
+      ))}
     </>
   );
 }

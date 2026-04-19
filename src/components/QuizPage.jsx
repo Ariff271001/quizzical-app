@@ -1,14 +1,12 @@
-import { useState, useEffect } from "react";
+import { useMemo } from "react";
+import { decode } from 'html-entities'
 import "../styles/QuizPage.css";
 
 export function QuizPage(props) {
-  const [shuffledAnswers, setShuffledAnswers] = useState([]);
-
-  useEffect(() => {
-    const shuffled = props.quizzes.map((quiz) =>
+  const shuffledAnswers = useMemo(() => {
+    return props.quizzes.map((quiz) =>
       shuffle([quiz.correct_answer, ...quiz.incorrect_answers]),
     );
-    setShuffledAnswers(shuffled);
   }, [props.quizzes]);
 
   function shuffle(array) {
@@ -23,23 +21,23 @@ export function QuizPage(props) {
   const quizzesElement = props.quizzes.map((quiz, index) => {
     return (
       <div className="question-block" key={index}>
-        <p className="q-text">{quiz.question}</p>
+        <p className="q-text">{decode(quiz.question)}</p>
         <div className="options">
           {(shuffledAnswers[index] || []).map((answer, i) => (
-          <button
-            key={i}
-            className={`opt ${props.selectedAnswers[index] === answer ? 'selected' : ''}`}
-            onClick={() => props.onSelect(index, answer)}
-          >
-            {answer}
-          </button>
-        ))}
+            <button
+              key={i}
+              className={`opt ${props.selectedAnswers[index] === answer ? "selected" : ""}`}
+              onClick={() => props.onSelect(index, answer)}
+            >
+              {decode(answer)}
+            </button>
+          ))}
         </div>
         <hr></hr>
       </div>
     );
   });
-  
+
   return (
     <>
       <div className="blob-top-right"></div>
