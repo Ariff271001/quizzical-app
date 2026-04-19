@@ -1,4 +1,4 @@
-import '../styles/HomePage.css'
+import "../styles/HomePage.css";
 
 export function HomePage(props) {
   return (

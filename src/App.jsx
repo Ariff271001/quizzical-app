@@ -7,7 +7,7 @@ function App() {
   const [isChecked, setIsChecked] = useState(false);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [quizzes, setQuizzes] = useState([]);
-  const [correctAnswers,setCorrectAnswers] = useState(0);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -27,11 +27,13 @@ function App() {
     return () => controller.abort(); // cancels the first call when effect re-runs
   }, []);
 
-  async function fetchData(){
-    const res = await fetch("https://opentdb.com/api.php?amount=5&category=9&type=multiple");
+  async function fetchData() {
+    const res = await fetch(
+      "https://opentdb.com/api.php?amount=5&category=9&type=multiple",
+    );
     const data = await res.json();
     const result = data.results;
-    setQuizzes(result)
+    setQuizzes(result);
   }
 
   function start() {
@@ -52,8 +54,10 @@ function App() {
   }
 
   function checkAnswers() {
-    const correctAnswers = Object.values(selectedAnswers).filter(item => item.isCorrect).length
-    setCorrectAnswers(correctAnswers)
+    const correctAnswers = Object.values(selectedAnswers).filter(
+      (item) => item.isCorrect,
+    ).length;
+    setCorrectAnswers(correctAnswers);
     setIsChecked((prev) => !prev);
   }
 
@@ -61,14 +65,14 @@ function App() {
     fetchData();
     setIsChecked(false);
     setSelectedAnswers({});
-    setCorrectAnswers(0)
+    setCorrectAnswers(0);
   }
   return (
     <>
-      {
-        (isHomePage ? (
-          <HomePage onClick={start} />
-        ) : quizzes.length !== 0 && (
+      {isHomePage ? (
+        <HomePage onClick={start} />
+      ) : (
+        quizzes.length !== 0 && (
           <QuizPage
             quizzes={quizzes}
             selectedAnswers={selectedAnswers}
@@ -78,7 +82,8 @@ function App() {
             handleReset={handleReset}
             correctAnswers={correctAnswers}
           />
-        ))}
+        )
+      )}
     </>
   );
 }
