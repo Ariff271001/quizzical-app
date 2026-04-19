@@ -48,6 +48,20 @@
   background: #e8eaf5;
 }
 
+.opt.right {
+  background: #94D7A2;
+  border: none;
+}
+
+.opt.wrong {
+  background: #F8BCBC;
+  border: none;
+}
+
+.opt.others {
+  opacity: 50%;
+}
+
 hr {
   border: none;
   border-top: 1px solid #cdd0e0;
@@ -58,6 +72,8 @@ hr {
 .check-btn-wrap {
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 20px;
   margin-top: 32px;
 }
 
